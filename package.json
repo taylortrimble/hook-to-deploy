@@ -1,0 +1,28 @@
+{
+  "name": "hook-to-deploy",
+  "description": "Build your own webhooks to re-deploy your applications.",
+  "version": "0.0.1",
+  "maintainers": [
+    {
+      "name": "Matthew Lewis",
+      "email": "matt@mplewis.com",
+      "web": "http://mplewis.com/"
+    }
+  ],
+  "dependencies": {
+    "node-restify": "2.6.1"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "git@github.com:thenewtricks/hook-to-deploy.git"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "The MIT License (MIT)",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "homepage": "https://github.com/thenewtricks/hook-to-deploy"
+}
