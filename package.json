@@ -10,14 +10,12 @@
     }
   ],
   "dependencies": {
-    "node-restify": "2.6.1"
+    "restify": "2.6.1"
   },
-  "repositories": [
-    {
-      "type": "git",
-      "url": "git@github.com:thenewtricks/hook-to-deploy.git"
-    }
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thenewtricks/hook-to-deploy.git"
+  },
   "licenses": [
     {
       "name": "The MIT License (MIT)",
