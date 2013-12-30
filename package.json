@@ -12,6 +12,10 @@
   "dependencies": {
     "restify": "2.6.1"
   },
+  "devDependencies": {
+    "mocha": "1.16.2",
+    "should": "2.1.1"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:thenewtricks/hook-to-deploy.git"
@@ -22,5 +26,8 @@
       "url": "http://opensource.org/licenses/MIT"
     }
   ],
-  "homepage": "https://github.com/thenewtricks/hook-to-deploy"
+  "homepage": "https://github.com/thenewtricks/hook-to-deploy",
+  "scripts": {
+    "test": "mocha"
+  }
 }
