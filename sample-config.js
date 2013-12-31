@@ -1,13 +1,17 @@
+// Copy this file to config.js before running Hook to Deploy.
+
 var util = require('util');
 
+var port = 8080;
+
 var hooks = {
-  project_one: {
+  project_one: { // http://server:port/hook/project_one?key=p1_key
     key: 'p1_key',
     action: function(req, res) {
       res.send({'success': 'hello, this is ' + req.params.hook_name});
     }
   },
-  project_two: {
+  project_two: { // http://server:port/hook/project_two?key=fry_it&to_fry=fresh%20walleye
     key: 'fry_it',
     action: function(req, res) {
       if ('to_fry' in req.query) {
@@ -19,10 +23,9 @@ var hooks = {
       }
     }
   },
-  exec_python: {
+  exec_python: { // http://server:port/hook/exec_python?key=rng_key
     key: 'rng_key',
     action: function(req, res) {
-      var range = req.query.range;
       var to_exec = 'python -c "from random import randrange; print(randrange(100))"';
       require('child_process').exec(to_exec, function(error, stdout, stderr) {
         var retval = {};
@@ -41,5 +44,6 @@ var hooks = {
 };
 
 module.exports = {
+  port: port,
   hooks: hooks
 };
