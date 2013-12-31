@@ -22,6 +22,6 @@ server.get('/hook/:hook_name', function(req, res, next) {
   }
 });
 
-server.listen(8080, function() {
+server.listen(config.port, function() {
   console.log('%s listening on %s', server.name, server.url);
 });
