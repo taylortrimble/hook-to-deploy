@@ -1,4 +1,9 @@
-var config = require('./config.js');
+if (process.env.NODE_ENV === 'test')
+  var config_path = './sample-config.js';
+else
+  var config_path = './config.js';
+
+var config = require(config_path);
 
 var restify = require('restify');
 var util = require('util');

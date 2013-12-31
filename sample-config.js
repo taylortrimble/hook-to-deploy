@@ -1,4 +1,5 @@
 // Copy this file to config.js before running Hook to Deploy.
+// Leave this config file alone: it's used to run tests.
 
 var util = require('util');
 

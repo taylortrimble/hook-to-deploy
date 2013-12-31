@@ -2,6 +2,7 @@ var restify = require('restify');
 var should = require('should');
 
 before(function(done) {
+  process.env.NODE_ENV = 'test';
   require('../server.js');
   done();
 });
