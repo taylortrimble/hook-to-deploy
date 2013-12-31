@@ -1,4 +1,9 @@
-var config = require('./config.js');
+if (process.env.NODE_ENV === 'test')
+  var config_path = './sample_config.js';
+else
+  var config_path = './config.js';
+
+var config = require(config_path);
 
 var restify = require('restify');
 var util = require('util');
@@ -22,6 +27,6 @@ server.get('/hook/:hook_name', function(req, res, next) {
   }
 });
 
-server.listen(8080, function() {
+server.listen(config.port, function() {
   console.log('%s listening on %s', server.name, server.url);
 });
