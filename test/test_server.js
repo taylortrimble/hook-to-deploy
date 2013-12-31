@@ -52,3 +52,13 @@ describe('bad routes:', function() {
     GET_FORBIDDEN('/', done);
   });
 });
+
+describe('wrong methods:', function() {
+  it('should send a 403 Forbidden response for using invalid methods on GET-only routes', function(done) {
+    client.del('/hook/project_one?key=p1_key', function(err, req, res) {
+      should.exist(err);
+      res.statusCode.should.eql(403);
+      done();
+    });
+  });
+});
