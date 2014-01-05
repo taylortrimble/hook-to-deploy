@@ -30,8 +30,8 @@ var hooks = {
       var to_exec = 'python -c "from random import randrange; print(randrange(100))"';
       require('child_process').exec(to_exec, function(error, stdout, stderr) {
         var retval = {};
-        retval.stdout = stdout;
-        retval.stderr = stderr;
+        retval.stdout = stdout.split('\n');
+        retval.stderr = stderr.split('\n');
         if (error === null) {
           retval.success = true;
           res.send(200, retval);
