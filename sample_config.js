@@ -3,7 +3,7 @@
 
 var util = require('util');
 
-var port = 8080;
+var PORT = 8080;
 
 var hooks = {
   projectOne: { // http://server:port/hook/projectOne?key=projOneKey
@@ -45,6 +45,6 @@ var hooks = {
 };
 
 module.exports = {
-  port: port,
+  port: PORT,
   hooks: hooks
 };
