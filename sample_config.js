@@ -30,7 +30,6 @@ var hooks = {
     key: 'rng_key',
     action: function(req, res) {
       var cmd = 'python -c "from random import randrange; from time import sleep; sleep(20); print(randrange(100))"';
-      var resultsFolder = 
       tasks.execSaveResults(cmd, RESULTS_FOLDER, function(err, procData) {
         if (err) res.send(500, {'error': err});
         res.send(procData);
