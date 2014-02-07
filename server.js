@@ -7,6 +7,8 @@ var config = require(configPath);
 var strings = require('./strings.js');
 
 var restify = require('restify');
+var fs = require('fs');
+var path = require('path');
 
 var FORBIDDEN_CODE = 403;
 var FORBIDDEN_ERROR = {error: {code: 'FORBIDDEN',
@@ -33,6 +35,20 @@ server.get('/hook/:hookName', function(req, res, next) {
     hook.action(req, res); // Hook must handle res.send()
   }
 });
+
+server.get('/results/:filename', function(req, res, next) {
+  var resultsPath = path.join(config.resultsFolder, req.params.filename);
+  if (fs.existsSync(resultsPath) && fs.statSync(resultsPath).isFile()) {
+    fs.readFile(resultsPath, {encoding: 'utf8'}, function(err, jsonFile) {
+      if (err) res.send(500, err);
+      var data = JSON.parse(jsonFile);
+      res.send(data);
+    });
+  } else {
+    res.send(FORBIDDEN_CODE, FORBIDDEN_ERROR);
+  }
+});
+
 server.on('NotFound', FORBIDDEN_CALLBACK);
 server.on('MethodNotAllowed', FORBIDDEN_CALLBACK);
 
