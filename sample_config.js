@@ -4,6 +4,7 @@
 var util = require('util');
 
 var PORT = 8080;
+var RESULTS_FOLDER = 'results';
 
 var hooks = {
   projectOne: { // http://server:port/hook/projectOne?key=projOneKey
@@ -46,5 +47,6 @@ var hooks = {
 
 module.exports = {
   port: PORT,
+  resultsFolder: RESULTS_FOLDER,
   hooks: hooks
 };
