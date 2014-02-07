@@ -1,9 +1,9 @@
 if (process.env.NODE_ENV === 'test')
-  var config_path = './sample_config.js';
+  var configPath = './sample_config.js';
 else
-  var config_path = './config.js';
+  var configPath = './config.js';
 
-var config = require(config_path);
+var config = require(configPath);
 var strings = require('./strings.js');
 
 var restify = require('restify');
@@ -19,13 +19,13 @@ var server = restify.createServer();
 server.use(restify.queryParser()); // Allows us to access req.query
 server.name = 'Hook to Deploy';
 
-server.get('/hook/:hook_name', function(req, res, next) {
-  if (!(req.params.hasOwnProperty('hook_name')) ||            // no hook name provided or
-      !(config.hooks.hasOwnProperty(req.params.hook_name))) { // hook does not exist
+server.get('/hook/:hookName', function(req, res, next) {
+  if (!(req.params.hasOwnProperty('hookName')) ||            // no hook name provided or
+      !(config.hooks.hasOwnProperty(req.params.hookName))) { // hook does not exist
     res.send(FORBIDDEN_CODE, FORBIDDEN_ERROR);
   }
 
-  var hook = config.hooks[req.params.hook_name];
+  var hook = config.hooks[req.params.hookName];
   if (!(req.query.hasOwnProperty('key')) ||                   // no key provided or
       req.query.key !== hook.key) {                           // hook key is incorrect
     res.send(FORBIDDEN_CODE, FORBIDDEN_ERROR);

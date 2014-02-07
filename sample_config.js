@@ -6,17 +6,17 @@ var util = require('util');
 var port = 8080;
 
 var hooks = {
-  project_one: { // http://server:port/hook/project_one?key=p1_key
-    key: 'p1_key',
+  projectOne: { // http://server:port/hook/projectOne?key=projOneKey
+    key: 'projOneKey',
     action: function(req, res) {
-      res.send({'success': 'hello, this is ' + req.params.hook_name});
+      res.send({'success': 'hello, this is ' + req.params.hookName});
     }
   },
-  project_two: { // http://server:port/hook/project_two?key=fry_it&to_fry=fresh%20walleye
-    key: 'fry_it',
+  projectTwo: { // http://server:port/hook/projectTwo?key=fryIt&toFry=fresh%20walleye
+    key: 'fryIt',
     action: function(req, res) {
-      if ('to_fry' in req.query) {
-        var item = req.query.to_fry;
+      if ('toFry' in req.query) {
+        var item = req.query.toFry;
         var text = util.format('I\'m going to fry %s for you now!', item);
         res.send({'success': text});
       } else {
