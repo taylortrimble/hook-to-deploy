@@ -23,18 +23,18 @@ function GET_FORBIDDEN(path, done) {
 
 describe('key correctness:', function() {
   it('should send a 200 OK response for correct keys', function(done) {
-    client.get('/hook/project_one?key=p1_key', function(err, req, res, data) {
+    client.get('/hook/projectOne?key=projOneKey', function(err, req, res, data) {
       should.not.exist(err);
       res.statusCode.should.eql(200);
-      data.success.should.eql('hello, this is project_one');
+      data.success.should.eql('hello, this is projectOne');
       done();
     });
   });
   it('should send a 403 Forbidden response for incorrect keys', function(done) {
-    GET_FORBIDDEN('/hook/project_one?key=BAD_KEY', done);
+    GET_FORBIDDEN('/hook/projectOne?key=BAD_KEY', done);
   });
   it('should send a 403 Forbidden response for missing keys', function(done) {
-    GET_FORBIDDEN('/hook/project_one', done);
+    GET_FORBIDDEN('/hook/projectOne', done);
   });
 });
 
@@ -55,7 +55,7 @@ describe('bad routes:', function() {
 
 describe('wrong methods:', function() {
   it('should send a 403 Forbidden response for using invalid methods on GET-only routes', function(done) {
-    client.del('/hook/project_one?key=p1_key', function(err, req, res) {
+    client.del('/hook/projectOne?key=p1_key', function(err, req, res) {
       should.exist(err);
       res.statusCode.should.eql(403);
       done();
