@@ -2,6 +2,7 @@
 // Leave this config file alone: it's used to run tests.
 
 var util = require('util');
+var tasks = require('./tasks.js');
 
 var PORT = 8080;
 var RESULTS_FOLDER = 'results';
@@ -28,18 +29,11 @@ var hooks = {
   exec_python: { // http://server:port/hook/exec_python?key=rng_key
     key: 'rng_key',
     action: function(req, res) {
-      var to_exec = 'python -c "from random import randrange; print(randrange(100))"';
-      require('child_process').exec(to_exec, function(error, stdout, stderr) {
-        var retval = {};
-        retval.stdout = stdout.split('\n');
-        retval.stderr = stderr.split('\n');
-        if (error === null) {
-          retval.success = true;
-          res.send(200, retval);
-        } else {
-          retval.error = error;
-          res.send(500, retval);
-        }
+      var cmd = 'python -c "from random import randrange; from time import sleep; sleep(20); print(randrange(100))"';
+      var resultsFolder = 
+      tasks.execSaveResults(cmd, RESULTS_FOLDER, function(err, procData) {
+        if (err) res.send(500, {'error': err});
+        res.send(procData);
       });
     }
   }
