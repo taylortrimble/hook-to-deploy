@@ -67,6 +67,22 @@ describe('wrong methods:', function() {
 });
 
 describe('results route', function() {
+  it('should send file contents for result files that exist', function(done) {
+    var isFileMethod = { isFile: function() { return true; } };
+    var fileData = {'dummyData': '0xDEADBEEFCAFE'};
+    var jsonData = JSON.stringify(fileData);
+    var stubFsExistsSync = sinon.stub(fs, 'existsSync').returns(true);
+    var stubFsStatSync = sinon.stub(fs, 'statSync').returns(isFileMethod);
+    var stubFsReadFile = sinon.stub(fs, 'readFile').callsArgWith(2, null, jsonData);
+    client.get('/results/cafebabefacade.json', function(err, req, res, data) {
+      should.not.exist(err);
+      res.statusCode.should.equal(200);
+      data.should.eql(fileData);
+      stubFsExistsSync.restore();
+      stubFsStatSync.restore();
+      done();
+    });
+  });
   it('should send a 403 Forbidden response for result files that don\'t exist', function(done) {
     GET_FORBIDDEN('/results/DOES_NOT_EXIST.json', done);
   });
