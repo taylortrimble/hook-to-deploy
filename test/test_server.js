@@ -62,3 +62,9 @@ describe('wrong methods:', function() {
     });
   });
 });
+
+describe('results route', function() {
+  it('should send a 403 Forbidden response for result files that don\'t exist', function(done) {
+    GET_FORBIDDEN('/results/DOES_NOT_EXIST.json', done);
+  });
+});
