@@ -15,8 +15,8 @@ var client = restify.createJsonClient({
 function GET_FORBIDDEN(path, done) {
   client.get(path, function(err, req, res, data) {
     should.exist(err);
-    res.statusCode.should.eql(403);
-    data.error.code.should.eql('FORBIDDEN');
+    res.statusCode.should.equal(403);
+    data.error.code.should.equal('FORBIDDEN');
     done();
   });
 }
@@ -25,8 +25,8 @@ describe('key correctness:', function() {
   it('should send a 200 OK response for correct keys', function(done) {
     client.get('/hook/projectOne?key=projOneKey', function(err, req, res, data) {
       should.not.exist(err);
-      res.statusCode.should.eql(200);
-      data.success.should.eql('hello, this is projectOne');
+      res.statusCode.should.equal(200);
+      data.success.should.equal('hello, this is projectOne');
       done();
     });
   });
@@ -57,7 +57,7 @@ describe('wrong methods:', function() {
   it('should send a 403 Forbidden response for using invalid methods on GET-only routes', function(done) {
     client.del('/hook/projectOne?key=p1_key', function(err, req, res) {
       should.exist(err);
-      res.statusCode.should.eql(403);
+      res.statusCode.should.equal(403);
       done();
     });
   });
