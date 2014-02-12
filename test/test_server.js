@@ -1,5 +1,8 @@
-var restify = require('restify');
 var should = require('should');
+var sinon = require('sinon');
+
+var restify = require('restify');
+var fs = require('fs');
 
 before(function(done) {
   process.env.NODE_ENV = 'test';
