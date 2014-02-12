@@ -78,8 +78,11 @@ describe('results route', function() {
       should.not.exist(err);
       res.statusCode.should.equal(200);
       data.should.eql(fileData);
+
       stubFsExistsSync.restore();
       stubFsStatSync.restore();
+      stubFsReadFile.restore();
+      
       done();
     });
   });
