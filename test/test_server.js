@@ -135,6 +135,24 @@ describe('results route', function() {
       done();
     });
   });
+  it('should send a 500 ERROR response if fs.readFile throws an error', function(done) {
+    var sampleError = new Error('Something broke, yo');
+    var isFileMethod = { isFile: function() { return true; } };
+    var stubFsExistsSync = sinon.stub(fs, 'existsSync').returns(true);
+    var stubFsStatSync = sinon.stub(fs, 'statSync').returns(isFileMethod);
+    var stubFsReadFile = sinon.stub(fs, 'readFile').callsArgWith(2, sampleError, null);
+    client.get('/results/cafefaceb00c.json', function(err, req, res, data) {
+      should.exist(err);
+      res.statusCode.should.equal(500);
+      data.error.should.eql(sampleError);
+
+      stubFsExistsSync.restore();
+      stubFsStatSync.restore();
+      stubFsReadFile.restore();
+      
+      done();
+    });
+  });
   it('should send a 403 Forbidden response for result files that don\'t exist', function(done) {
     GET_FORBIDDEN('/results/DOES_NOT_EXIST.json', done);
   });

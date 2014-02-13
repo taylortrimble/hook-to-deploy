@@ -42,9 +42,12 @@ server.get('/results/:filename', function(req, res, next) {
   var resultsPath = path.join(config.resultsFolder, req.params.filename);
   if (fs.existsSync(resultsPath) && fs.statSync(resultsPath).isFile()) {
     fs.readFile(resultsPath, {encoding: 'utf8'}, function(err, jsonFile) {
-      if (err) res.send(500, err);
-      var data = JSON.parse(jsonFile);
-      res.send(data);
+      if (err) {
+        res.send(500, {error: err});
+      } else {
+        var data = JSON.parse(jsonFile);
+        res.send(data);
+      }
     });
   } else {
     SEND_FORBIDDEN(req, res, next);
