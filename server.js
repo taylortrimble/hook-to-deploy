@@ -1,3 +1,4 @@
+/* istanbul ignore else */
 if (process.env.NODE_ENV === 'test')
   var configPath = './testing_config.js';
 else
