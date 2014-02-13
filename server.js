@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV === 'test')
-  var configPath = './sample_config.js';
+  var configPath = './testing_config.js';
 else
   var configPath = './config.js';
 
