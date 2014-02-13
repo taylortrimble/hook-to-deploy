@@ -69,6 +69,23 @@ describe('basic hook', function() {
   });
 });
 
+describe('argument-handling hook', function() {
+  it('should handle arguments passed via query params', function() {
+    client.get('/hook/deepFryer?key=fryIt&toFry=the%20CPU', function(err, req, res, data) {
+      should.not.exist(err);
+      res.statusCode.should.equal(200);
+      data.success.should.equal('I\'m going to fry the CPU for you now!');
+    });
+  });
+  it('should throw a 400 BAD REQUEST error when query params are missing', function() {
+    client.get('/hook/deepFryer?key=fryIt', function(err, req, res, data) {
+      should.exist(err);
+      res.statusCode.should.equal(400);
+      data.error.should.equal('You didn\'t give me anything to fry');
+    });
+  });
+});
+
 describe('results route', function() {
   it('should send file contents for result files that exist', function(done) {
     var isFileMethod = { isFile: function() { return true; } };
