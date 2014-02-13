@@ -18,7 +18,7 @@ function SEND_FORBIDDEN(req, res, next) {
 }
 
 var server = restify.createServer();
-server.use(restify.queryParser()); // Allows us to access req.query
+server.use(restify.queryParser());  // Allows us to access req.query
 server.name = 'Hook to Deploy';
 
 server.get('/hook/:hookName', function(req, res, next) {
@@ -29,7 +29,7 @@ server.get('/hook/:hookName', function(req, res, next) {
   }
 
   var hook = config.hooks[req.params.hookName];
-  if (req.query.key !== hook.key) {                          // hook key is incorrect)
+  if (req.query.key !== hook.key) {                          // hook key is incorrect
     SEND_FORBIDDEN(req, res, next);
     return;
   }
