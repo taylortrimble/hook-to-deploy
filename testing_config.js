@@ -12,7 +12,7 @@ var hooks = {
   basicHook: {
     key: 'basicHookKey',
     action: function(req, res) {
-      res.send({'success': 'hello, this is ' + req.params.hookName});
+      res.send({success: 'hello, this is ' + req.params.hookName});
     }
   },
   // Pass arguments to a hook.
@@ -23,9 +23,9 @@ var hooks = {
       if ('toFry' in req.query) {
         var item = req.query.toFry;
         var text = util.format('I\'m going to fry %s for you now!', item);
-        res.send({'success': text});
+        res.send({success: text});
       } else {
-        res.send(400, {'error': 'You didn\'t give me anything to fry'});
+        res.send(400, {error: 'You didn\'t give me anything to fry'});
       }
     }
   },
@@ -38,7 +38,7 @@ var hooks = {
       var cmd = 'python -c "from random import randrange; from time import sleep; sleep(20); print(randrange(100))"';
       tasks.execSaveResults(cmd, RESULTS_FOLDER, function(err, procData) {
         if (err)
-          res.send(500, {'error': err});
+          res.send(500, {error: err});
         else
           res.send(procData);
       });
