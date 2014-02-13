@@ -16,7 +16,10 @@ module.exports = {
     // write in-progress procData to file
     fs.writeFile(resultsPath, JSON.stringify(procData), function(err) {
       // handle errors
-      if (err) callback(err);
+      if (err) {
+        callback(err);
+        return;
+      }
       
       // start the child process once the in-progress file has been written
       require('child_process').exec(toExec, function(err, stdout, stderr) {
@@ -38,7 +41,7 @@ module.exports = {
 
         // write finished finalData to file
         fs.writeFile(resultsPath, JSON.stringify(finalData), function(err) {
-          if (err) callback(err);
+          if (err) console.log(err);
         });
       });
 
