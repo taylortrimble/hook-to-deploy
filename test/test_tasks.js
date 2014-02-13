@@ -25,8 +25,13 @@ describe('execSaveResults', function() {
     tasks.execSaveResults('someFunction', 'resultsFolder', function(err, data) {
       should.not.exist(err);
       validateInProgressData(data);
-      stubFsWriteFile.restore();
-      done();
     });
+    var callChecker = setInterval(function() {
+      if (stubFsWriteFile.callCount >= 2) {
+        clearInterval(callChecker);
+        stubFsWriteFile.restore();
+        done();
+      }
+    }, 1);
   });
 });
