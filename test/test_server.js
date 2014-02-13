@@ -31,17 +31,23 @@ describe('Hook to Deploy', function() {
   it('should send a 403 Forbidden response for missing keys', function(done) {
     GET_FORBIDDEN('/hook/basicHook', done);
   });
+  it('should send a 403 Forbidden response for nonexistent hooks', function(done) {
+    GET_FORBIDDEN('/hook/DOES_NOT_EXIST', done);
+  });
+  it('should send a 403 Forbidden response for nonexistent hooks with a key', function(done) {
+    GET_FORBIDDEN('/hook/DOES_NOT_EXIST?key=BAD_KEY', done);
+  });
   it('should send a 403 Forbidden response for nonexistent routes', function(done) {
     GET_FORBIDDEN('/DOES_NOT_EXIST', done);
   });
   it('should send a 403 Forbidden response for nonexistent routes with a key', function(done) {
-    GET_FORBIDDEN('/', done);
+    GET_FORBIDDEN('/DOES_NOT_EXIST?key=BAD_KEY', done);
   });
   it('should send a 403 Forbidden response for the root route', function(done) {
     GET_FORBIDDEN('/', done);
   });
   it('should send a 403 Forbidden response for the root route with a key', function(done) {
-    GET_FORBIDDEN('/', done);
+    GET_FORBIDDEN('/?key=BAD_KEY', done);
   });
   it('should send a 403 Forbidden response for using invalid methods on GET-only routes', function(done) {
     client.del('/hook/basicHook?key=basicHookKey', function(err, req, res) {
