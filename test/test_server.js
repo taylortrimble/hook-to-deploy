@@ -25,14 +25,6 @@ function GET_FORBIDDEN(path, done) {
 }
 
 describe('Hook to Deploy', function() {
-  it('should send a 200 OK response for correct keys', function(done) {
-    client.get('/hook/basicHook?key=basicHookKey', function(err, req, res, data) {
-      should.not.exist(err);
-      res.statusCode.should.equal(200);
-      data.success.should.equal('hello, this is basicHook');
-      done();
-    });
-  });
   it('should send a 403 Forbidden response for incorrect keys', function(done) {
     GET_FORBIDDEN('/hook/basicHook?key=BAD_KEY', done);
   });
@@ -51,13 +43,21 @@ describe('Hook to Deploy', function() {
   it('should send a 403 Forbidden response for the root route with a key', function(done) {
     GET_FORBIDDEN('/', done);
   });
-});
-
-describe('wrong methods:', function() {
   it('should send a 403 Forbidden response for using invalid methods on GET-only routes', function(done) {
     client.del('/hook/basicHook?key=basicHookKey', function(err, req, res) {
       should.exist(err);
       res.statusCode.should.equal(403);
+      done();
+    });
+  });
+});
+
+describe('basic hook', function() {
+  it('should send a 200 OK response when requested with the correct key', function(done) {
+    client.get('/hook/basicHook?key=basicHookKey', function(err, req, res, data) {
+      should.not.exist(err);
+      res.statusCode.should.equal(200);
+      data.success.should.equal('hello, this is basicHook');
       done();
     });
   });
