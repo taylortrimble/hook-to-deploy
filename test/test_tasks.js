@@ -91,4 +91,14 @@ describe('execSaveResults', function() {
       }
     }, 1);
   });
+  it('should call the error callback on errors', function(done) {
+    var testError = new Error('Test error');
+    var stubFsWriteFile = sinon.stub(fs, 'writeFile').callsArgWith(2, testError);
+    tasks.execSaveResults('someFunction', 'resultsFolder', function(err) {
+      should.exist(err);
+      err.should.equal(testError);
+      stubFsWriteFile.restore();
+      done();
+    });
+  });
 });
