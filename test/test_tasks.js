@@ -5,10 +5,14 @@ var tasks = require('../tasks.js');
 
 var fs = require('fs');
 
-var procDataKeys = ['toExec', 'resultsFile', 'startedAt', 'inProgress'];
+var dataKeys = {
+  inProgress: ['toExec', 'resultsFile', 'startedAt', 'inProgress'],
+  success: ['toExec', 'resultsFile', 'startedAt', 'inProgress', 'finishedAt', 'stdout', 'stderr', 'success'],
+  failure: ['toExec', 'resultsFile', 'startedAt', 'inProgress', 'finishedAt', 'stdout', 'stderr', 'error']
+};
 
 function validateInProgressData(data) {
-  data.should.have.keys(procDataKeys);
+  data.should.have.keys(dataKeys.inProgress);
   data.toExec.should.equal('someFunction');
   data.resultsFile.should.endWith('.json');
   Date.parse(data.startedAt).should.be.ok;  // jshint ignore:line
