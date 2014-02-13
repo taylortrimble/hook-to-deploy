@@ -2,7 +2,9 @@ var should = require('should');
 var sinon = require('sinon');
 
 var restify = require('restify');
+
 var fs = require('fs');
+var tasks = require('../tasks.js');
 
 before(function(done) {
   process.env.NODE_ENV = 'test';
@@ -83,6 +85,31 @@ describe('argument-handling hook', function() {
       should.exist(err);
       res.statusCode.should.equal(400);
       data.error.should.equal('You didn\'t give me anything to fry');
+      done();
+    });
+  });
+});
+
+describe('tasks.execSaveResults hook', function() {
+  it('should send in-progress data after the task is started', function(done) {
+    var sampleData = {'sample': 'data'};
+    var stubExecTask = sinon.stub(tasks, 'execSaveResults').callsArgWith(2, null, sampleData);
+    client.get('/hook/execPython?key=rngStart', function(err, req, res, data) {
+      should.not.exist(err);
+      res.statusCode.should.equal(200);
+      data.should.eql(sampleData);
+      stubExecTask.restore();
+      done();
+    });
+  });
+  it('should send a 500 error if an error is thrown', function(done) {
+    var sampleError = new Error('Something broke, yo');
+    var stubExecTask = sinon.stub(tasks, 'execSaveResults').callsArgWith(2, sampleError, null);
+    client.get('/hook/execPython?key=rngStart', function(err, req, res, data) {
+      should.exist(err);
+      res.statusCode.should.equal(500);
+      data.error.should.eql(sampleError);
+      stubExecTask.restore();
       done();
     });
   });
